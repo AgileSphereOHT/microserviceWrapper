@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.AbstractMap.*;
+import static java.util.AbstractMap.SimpleEntry;
 
 public class LibraryClassNoArgConstructor {
 
@@ -15,6 +15,10 @@ public class LibraryClassNoArgConstructor {
 
     public String respond() {
         return returnValue;
+    }
+
+    public String respondWithException() {
+        throw new RuntimeException("A library class exception");
     }
 
     public String respondOneParamAsString(String param1) {
@@ -29,9 +33,9 @@ public class LibraryClassNoArgConstructor {
         return "Params = " + param1 + "," + param2 + "," + param3;
     }
 
-    public String respondThreeParamAsArray(String param1, String param2, String param3) {
+    public String[] respondThreeParamAsArray(String param1, String param2, String param3) {
         String[] returnArray = {param1, param2, param3};
-        return "Params = " + param1 + "," + param2;
+        return returnArray;
     }
 
     public List<String> respondThreeParamAsList(String param1, String param2, String param3) {
@@ -46,4 +50,5 @@ public class LibraryClassNoArgConstructor {
                 new SimpleEntry<>("param3", param3));
         return Collections.unmodifiableMap(entryStream.collect(Collectors.toMap((e) -> e.getKey(), (e) -> e.getValue())));
     }
+
 }

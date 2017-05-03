@@ -25,16 +25,20 @@ public class Delegator {
         this.invocableMethod = getInvocableMethod(libraryClass, methodName, parameters);
     }
 
-    public String invokeMethod(Object[] params) {   // TODO use varargs
+    public Object invokeMethod(Object[] params) {   // TODO use varargs
         Object ret;
         try {
             ret = invocableMethod.invoke(delegate, params);
-        } catch (InvocationTargetException | IllegalAccessException | IllegalArgumentException ixe) {
-            String expectedErrorMessage = "Unable to invoke method " + methodName + " for class = " + libraryClassName;  //TODO show failing params
+        } catch (IllegalAccessException | IllegalArgumentException iae) {
+            String expectedErrorMessage = "Unable to invoke method " + methodName + " on class = " + libraryClassName;  //TODO show failing params
             logger.error(expectedErrorMessage);
-            throw new DelegatorInvocationException(expectedErrorMessage, ixe);
+            throw new DelegatorInvocationException(expectedErrorMessage, iae);
+        } catch (InvocationTargetException ite) {
+            String expectedErrorMessage = "Exception thrown when invoking method " + methodName + " on class = " + libraryClassName + " with message: " + ite.getCause().getMessage();  //TODO show failing params
+            logger.error(expectedErrorMessage);
+            throw new DelegatorInvocationException(expectedErrorMessage, ite);
         }
-        return (String) ret;
+        return ret;
     }
 
     private Class obtainClass(String libraryClassName) {
@@ -55,11 +59,11 @@ public class Delegator {
             Constructor<?> cons = libraryClass.getDeclaredConstructor();
             delegate = cons.newInstance();
         } catch (NoSuchMethodException nsme) {
-            final String expectedErrorMessage = "Unable to find constructor for class = " + libraryClassName;
+            final String expectedErrorMessage = "Unable to find constructor on class = " + libraryClassName;
             logger.error(expectedErrorMessage);
             throw new DelegatorConfigurationException(expectedErrorMessage, nsme);
         } catch (InstantiationException | InvocationTargetException | IllegalAccessException ixe) {
-            final String expectedErrorMessage = "Unable to construct object for class = " + libraryClassName;
+            final String expectedErrorMessage = "Unable to construct object on class = " + libraryClassName;
             logger.error(expectedErrorMessage);
             throw new DelegatorConfigurationException(expectedErrorMessage, ixe);
         }
@@ -71,7 +75,7 @@ public class Delegator {
         try {
             foundMethod = libraryClass.getDeclaredMethod(methodName, parameters);
         } catch (NoSuchMethodException nsme) {
-            String expectedErrorMessage = "Unable to find invocable method " + methodName + " with " + parameters.length + " parameters for class = " + libraryClassName;
+            String expectedErrorMessage = "Unable to find invocable method " + methodName + " with " + parameters.length + " parameters on class = " + libraryClassName;
             logger.error(expectedErrorMessage);
             throw new DelegatorConfigurationException(expectedErrorMessage, nsme);
         }

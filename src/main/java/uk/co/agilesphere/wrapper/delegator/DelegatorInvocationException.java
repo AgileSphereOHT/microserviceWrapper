@@ -7,7 +7,8 @@ public class DelegatorInvocationException extends RuntimeException {
 
     private static Logger logger = LoggerFactory.getLogger(uk.co.agilesphere.wrapper.delegator.DelegatorInvocationException.class);
 
-    public DelegatorInvocationException() {}
+    public DelegatorInvocationException() {
+    }
 
     public DelegatorInvocationException(String message) {
         super(message);
