@@ -1,4 +1,4 @@
-package uk.co.agilesphere.delegator;
+package uk.co.agilesphere.wrapper.delegator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -10,8 +10,7 @@ public class LibraryClassNoArgConstructor {
 
     private String returnValue = "RETURNED";
 
-    public LibraryClassNoArgConstructor() {
-    }
+    public LibraryClassNoArgConstructor() { }
 
     public String respond() {
         return returnValue;

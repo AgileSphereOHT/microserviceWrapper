@@ -1,11 +1,11 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.wrapper.delegator.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DelegatorInvocationException extends RuntimeException {
 
-    private static Logger logger = LoggerFactory.getLogger(uk.co.agilesphere.wrapper.delegator.DelegatorInvocationException.class);
+    private static Logger logger = LoggerFactory.getLogger(DelegatorInvocationException.class);
 
     public DelegatorInvocationException() {
     }

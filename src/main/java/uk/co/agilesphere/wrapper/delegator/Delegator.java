@@ -2,6 +2,8 @@ package uk.co.agilesphere.wrapper.delegator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.co.agilesphere.wrapper.delegator.exception.DelegatorConfigurationException;
+import uk.co.agilesphere.wrapper.delegator.exception.DelegatorInvocationException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -17,17 +19,20 @@ public class Delegator {
     private Object delegate;
     private Method invocableMethod;
 
-    public Delegator(String libraryClassName, String methodName, Class[] parameters) {
+    public Delegator(String libraryClassName, String methodName, String... parameterNames) {
         this.libraryClassName = libraryClassName;
         this.methodName = methodName;
         this.libraryClass = obtainClass(libraryClassName);
+
         this.delegate = constructDelegate(libraryClass);
-        this.invocableMethod = getInvocableMethod(libraryClass, methodName, parameters);
+        //TODO parameters here are the mames of String parameters - need to allow name and Type?
+        this.invocableMethod = getInvocableMethod(libraryClass, methodName, parameterNames);
     }
 
-    public Object invokeMethod(Object[] params) {   // TODO use varargs
+    public Object invokeMethod(Object... params) {
         Object ret;
         try {
+            //TODO provide pre-check of parameter number and type (all String at the mo) vs params
             ret = invocableMethod.invoke(delegate, params);
         } catch (IllegalAccessException | IllegalArgumentException iae) {
             String expectedErrorMessage = "Unable to invoke method " + methodName + " on class = " + libraryClassName;  //TODO show failing params
@@ -41,22 +46,22 @@ public class Delegator {
         return ret;
     }
 
-    private Class obtainClass(String libraryClassName) {
-        Class libraryClass;
+    private Class obtainClass(String className) {
+        Class clazz;
         try {
-            libraryClass = Class.forName(libraryClassName);
+            clazz = Class.forName(className);
         } catch (ClassNotFoundException cnfe) {
-            final String expectedErrorMessage = "Unable to create class = " + libraryClassName;
+            final String expectedErrorMessage = "Unable to create class = " + className;
             logger.error(expectedErrorMessage);
             throw new DelegatorConfigurationException(expectedErrorMessage, cnfe);
         }
-        return libraryClass;
+        return clazz;
     }
 
     private Object constructDelegate(Class libraryClass) {
         Object delegate;
         try {
-            Constructor<?> cons = libraryClass.getDeclaredConstructor();
+            Constructor<?> cons = libraryClass.getDeclaredConstructor();    // todo thi is with no arg constructor - contrains service classes OR allow
             delegate = cons.newInstance();
         } catch (NoSuchMethodException nsme) {
             final String expectedErrorMessage = "Unable to find constructor on class = " + libraryClassName;
@@ -70,12 +75,18 @@ public class Delegator {
         return delegate;
     }
 
-    private Method getInvocableMethod(Class libraryClass, String methodName, Class[] parameters) {
+    private Method getInvocableMethod(Class libraryClass, String methodName, String... parameterNames) {
         Method foundMethod;
+
+        Class[] parameterClasses = new Class[parameterNames.length];
+        for (int ix = 0; ix < parameterNames.length; ix++) {
+            parameterClasses[ix] = obtainClass("java.lang.String");
+        }
+
         try {
-            foundMethod = libraryClass.getDeclaredMethod(methodName, parameters);
+            foundMethod = libraryClass.getDeclaredMethod(methodName, parameterClasses);
         } catch (NoSuchMethodException nsme) {
-            String expectedErrorMessage = "Unable to find invocable method " + methodName + " with " + parameters.length + " parameters on class = " + libraryClassName;
+            String expectedErrorMessage = "Unable to find invocable method " + methodName + " with " + parameterNames.length + " parameters on class = " + libraryClassName;
             logger.error(expectedErrorMessage);
             throw new DelegatorConfigurationException(expectedErrorMessage, nsme);
         }

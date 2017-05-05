@@ -1,4 +1,4 @@
-package uk.co.agilesphere.delegator;
+package uk.co.agilesphere.wrapper.delegator;
 
 public class LibraryClassWithPrivateConstructor {
     private String returnValue = "RETURNED";
