@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -7,7 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
-import uk.co.agilesphere.wrapper.delegator.exception.DelegatorRegistrationException;
+import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorRegistrationException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 import java.util.*;
 import java.util.stream.Collectors;

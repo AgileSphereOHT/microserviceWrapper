@@ -1,8 +1,8 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.co.agilesphere.wrapper.delegator.exception.DelegatorRegistrationException;
+import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorRegistrationException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +27,7 @@ public class DelegatorRegistryProperties {
         return DelegatorRegistryProperties.class.getResourceAsStream(propsFileName);
     }
 
-    protected void loadProperties() {
+    protected void loadProperties() { //TODO close the inputstream
         try {
             InputStream in = this.getInputStream();
             properties.load(in);

@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper.delegator.exception;
+package uk.co.agilesphere.microservicewrapper.delegator.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

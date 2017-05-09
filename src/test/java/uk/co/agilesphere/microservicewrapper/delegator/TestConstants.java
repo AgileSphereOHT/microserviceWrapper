@@ -1,11 +1,11 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 public class TestConstants {
 
-    public static final String LIBRARY_CLASS_NO_ARG_CONS_NAME = "uk.co.agilesphere.wrapper.delegator.LibraryClassNoArgConstructor";
-    public static final String LIBRARY_CLASS_WITH_ARG_CONS_NAME = "uk.co.agilesphere.wrapper.delegator.LibraryClassWithArgConstructor";
-    public static final String LIBRARY_CLASS_WITH_PRIVATE_CONS_NAME = "uk.co.agilesphere.wrapper.delegator.LibraryClassWithPrivateConstructor";
-    public static final String LIBRARY_CLASS_DOES_NOT_EXIST_NAME = "uk.co.agilesphere.delegator.LibraryClassDoesNotExist";
+    public static final String LIBRARY_CLASS_NO_ARG_CONS_NAME = "uk.co.agilesphere.microservicewrapper.delegator.LibraryClassNoArgConstructor";
+    public static final String LIBRARY_CLASS_WITH_ARG_CONS_NAME = "uk.co.agilesphere.microservicewrapper.delegator.LibraryClassWithArgConstructor";
+    public static final String LIBRARY_CLASS_WITH_PRIVATE_CONS_NAME = "uk.co.agilesphere.microservicewrapper.delegator.LibraryClassWithPrivateConstructor";
+    public static final String LIBRARY_CLASS_DOES_NOT_EXIST_NAME = "uk.co.agilesphere.microservicewrapper.delegator.LibraryClassDoesNotExist";
     public static final String METHOD_WITH_NO_PARAMS_NAME = "respond";
     public static final String METHOD_WITH_ONE_PARAM_NAME = "respondOneParamAsString";
     public static final String METHOD_WITH_TWO_PARAM_NAME = "respondTwoParamAsString";

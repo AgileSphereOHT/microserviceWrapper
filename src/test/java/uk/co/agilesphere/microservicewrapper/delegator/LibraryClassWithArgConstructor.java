@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 public class LibraryClassWithArgConstructor {
     private String returnValue = "RETURNED";

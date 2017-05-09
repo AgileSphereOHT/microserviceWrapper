@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper;
+package uk.co.agilesphere.microservicewrapper;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

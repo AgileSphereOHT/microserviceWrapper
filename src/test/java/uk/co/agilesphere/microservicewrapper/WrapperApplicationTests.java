@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper;
+package uk.co.agilesphere.microservicewrapper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

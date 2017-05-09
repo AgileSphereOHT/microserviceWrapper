@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 public class DelegatorRegistryEntry {
 
+    public static final int PROPERTY_FIELDS_BEFORE_PARAMETERS = 3;
     private static Logger logger = LoggerFactory.getLogger(DelegatorRegistryEntry.class);
 
     private String key;
@@ -34,8 +35,8 @@ public class DelegatorRegistryEntry {
     public static DelegatorRegistryEntry generateFromPropertyDefinition(String propertyKey, String propertyDefinition) {
         DelegatorRegistryEntry entry = null;
         StringTokenizer tokens = new StringTokenizer(propertyDefinition,",");
-        int parameterCount = tokens.countTokens() - 3;
-        while (tokens.hasMoreTokens()) {
+        int parameterCount = tokens.countTokens() - PROPERTY_FIELDS_BEFORE_PARAMETERS;
+        //while (tokens.hasMoreTokens()) {
             String className = tokens.nextToken();
             String methodName = tokens.nextToken();
             String returnType = tokens.nextToken();
@@ -45,7 +46,7 @@ public class DelegatorRegistryEntry {
             }
             Delegator delegator = new Delegator(className,methodName,parameters);
             entry = new DelegatorRegistryEntry(propertyKey,className,methodName,returnType,parameters,delegator);
-        }
+        //}
         return entry;
     }
 

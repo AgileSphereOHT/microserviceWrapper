@@ -1,10 +1,10 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import uk.co.agilesphere.wrapper.delegator.exception.DelegatorConfigurationException;
-import uk.co.agilesphere.wrapper.delegator.exception.DelegatorInvocationException;
+import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorConfigurationException;
+import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorInvocationException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
-import static uk.co.agilesphere.wrapper.delegator.TestConstants.*;
+import static uk.co.agilesphere.microservicewrapper.delegator.TestConstants.*;
 
 /*
 TODO Springrunner ??

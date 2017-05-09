@@ -1,9 +1,9 @@
-package uk.co.agilesphere.wrapper.delegator;
+package uk.co.agilesphere.microservicewrapper.delegator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.co.agilesphere.wrapper.delegator.exception.DelegatorConfigurationException;
-import uk.co.agilesphere.wrapper.delegator.exception.DelegatorInvocationException;
+import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorConfigurationException;
+import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorInvocationException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

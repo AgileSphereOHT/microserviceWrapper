@@ -1,4 +1,4 @@
-package uk.co.agilesphere.wrapper.controller;
+package uk.co.agilesphere.microservicewrapper.controller;
 
 
 import org.slf4j.Logger;
