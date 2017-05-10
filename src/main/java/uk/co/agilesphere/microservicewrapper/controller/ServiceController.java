@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.co.agilesphere.microservicewrapper.delegator.DelegatorRegistry;
 import uk.co.agilesphere.microservicewrapper.delegator.DelegatorRegistryEntry;
 
+import java.util.*;
+
 //import uk.co.agilesphere.wrapped.service.Service;
 
 @RestController
@@ -21,41 +23,137 @@ public class ServiceController {
         this.service = service;
     }*/
 
-    @RequestMapping("/service")
-    public String service(Model model) {
-        logger.info(">> providing service");
+    @RequestMapping("/service-x")
+    public String serviceX(Model model) {
+        logger.info(">> providing service X");
         String rtn = "";
         try {
             DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
             registry.registerDelegators();
-            DelegatorRegistryEntry entry = registry.getEntry("urlkey");
+            DelegatorRegistryEntry entry = registry.getEntry("service-x");
             rtn = (String) entry.getDelegator().invokeMethod();
-
-/*            Class clazz = Class.forName("uk.co.agilesphere.wrapped.service.Service");
-            System.out.println("Clazz=" + clazz.getSimpleName());
-            Constructor<?> cons = clazz.getDeclaredConstructor(String.class);
-            //Object obj = clazz.newInstance();
-            Object obj = cons.newInstance("PINGBACK");
-            //Class[] cArg = new Class[1];
-            //cArg[0] = String.class;
-            Method meth = clazz.getDeclaredMethod("ping", new Class[]{});
-            Object ret = meth.invoke(obj, new Object[]{});
-            rtn = (String) ret;*/
         } catch (Exception e) {
             System.out.println("EXCEPTION " + e);
             e.printStackTrace();
-        } /*catch (ClassNotFoundException cnfe) {
-            System.out.println("CNFE");
-        } catch (InstantiationException ie) {
-        System.out.println("CNFE");
-        } catch (NoSuchMethodException nsme) {
-            System.out.println("NSME");
-        } catch (InvocationTargetException ite) {
-            System.out.println("ITE");
-        } catch (IllegalAccessException iae) {
-            System.out.println("IAE");
-        }*/
-        //return "XX..."+service.ping()+"...XX";
-        return "XX..." + rtn + "...XYZ";
+        }
+        return "Service X..." + rtn + "...";
+    }
+
+    @RequestMapping("/service-a")
+    public String serviceA(Model model) {
+        logger.info(">> providing service A");
+        String rtn = "";
+        try {
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("service-a");
+            rtn = (String) entry.getDelegator().invokeMethod();
+        } catch (Exception e) {
+            System.out.println("EXCEPTION " + e);
+            e.printStackTrace();
+        }
+        return "Service A..." + rtn + "...";
+    }
+
+    @RequestMapping("/service-b")
+    public String serviceB(Model model) {
+        logger.info(">> providing service B");
+        String rtn = "";
+        try {
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("service-b");
+            String[] params = {"param1"};
+            rtn = (String) entry.getDelegator().invokeMethod(params);
+        } catch (Exception e) {
+            System.out.println("EXCEPTION " + e);
+            e.printStackTrace();
+        }
+        return "Service B..." + rtn + "...";
+    }
+
+    @RequestMapping("/service-c")
+    public String serviceC(Model model) {
+        logger.info(">> providing service C");
+        String rtn = "";
+        try {
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("service-c");
+            String[] params = {"param1","param2"};
+            rtn = (String) entry.getDelegator().invokeMethod(params);
+        } catch (Exception e) {
+            System.out.println("EXCEPTION " + e);
+            e.printStackTrace();
+        }
+        return "Service C..." + rtn + "...";
+    }
+
+    @RequestMapping("/service-d")
+    public String serviceD(Model model) {
+        logger.info(">> providing service D");
+        String rtn = "";
+        try {
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("service-d");
+            String[] params = {"param1","param2","param3"};
+            rtn = (String) entry.getDelegator().invokeMethod(params);
+        } catch (Exception e) {
+            System.out.println("EXCEPTION " + e);
+            e.printStackTrace();
+        }
+        return "Service D..." + rtn + "...";
+    }
+
+    @RequestMapping("/service-e")
+    public String serviceE(Model model) {
+        logger.info(">> providing service E");
+        String[] rtn = {};
+        try {
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("service-e");
+            String[] params = {"param1","param2","param3"};
+            rtn = (String[]) entry.getDelegator().invokeMethod(params);
+        } catch (Exception e) {
+            System.out.println("EXCEPTION " + e);
+            e.printStackTrace();
+        }
+        return "Service E..." + Arrays.toString(rtn) + "...";
+    }
+
+    @RequestMapping("/service-f")
+    public String serviceF(Model model) {
+        logger.info(">> providing service F");
+        List rtn = new ArrayList<String>();
+        try {
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("service-f");
+            String[] params = {"param1","param2","param3"};
+            rtn = (List<String>) entry.getDelegator().invokeMethod(params);
+        } catch (Exception e) {
+            System.out.println("EXCEPTION " + e);
+            e.printStackTrace();
+        }
+        return "Service F..." + rtn + "...";
+    }
+
+    @RequestMapping("/service-g")
+    public String serviceG(Model model) {
+        logger.info(">> providing service G");
+        Map<String,String> rtn = new HashMap<String,String>();
+        try {
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("service-g");
+            String[] params = {"param1","param2","param3"};
+            rtn = (Map<String,String>) entry.getDelegator().invokeMethod(params);
+        } catch (Exception e) {
+            System.out.println("EXCEPTION " + e);
+            e.printStackTrace();
+        }
+        return "Service G..." + rtn + "...";
     }
 }
