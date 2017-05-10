@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>uk.co.agilesphere.wrapper</groupId>
-	<artifactId>wrapper</artifactId>
+	<groupId>uk.co.agilesphere.microservicewrapper</groupId>
+	<artifactId>microservice-wrapper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>wrapper</name>
+	<name>microservice-wrapper</name>
 	<description>Microservice wrapper for library service</description>
 
 	<parent>
@@ -37,8 +37,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>uk.co.agilesphere.wrapped</groupId>
-			<artifactId>wrappedservice</artifactId>
+			<groupId>uk.co.agilesphere.dummyservice</groupId>
+			<artifactId>dummy-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<!--scope>system</scope-->
 			<!--systemPath>/Users/william/Applications/OverseasHealthcare/wrappedservice/target/wrappedservice-0.0.1-SNAPSHOT.jar</systemPath-->

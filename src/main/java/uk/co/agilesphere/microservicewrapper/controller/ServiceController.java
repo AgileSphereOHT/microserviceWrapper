@@ -1,14 +1,12 @@
 package uk.co.agilesphere.microservicewrapper.controller;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+import uk.co.agilesphere.microservicewrapper.delegator.DelegatorRegistry;
+import uk.co.agilesphere.microservicewrapper.delegator.DelegatorRegistryEntry;
 
 //import uk.co.agilesphere.wrapped.service.Service;
 
@@ -28,7 +26,12 @@ public class ServiceController {
         logger.info(">> providing service");
         String rtn = "";
         try {
-            Class clazz = Class.forName("uk.co.agilesphere.wrapped.service.Service");
+            DelegatorRegistry registry = new DelegatorRegistry("delegators/delegators.properties");
+            registry.registerDelegators();
+            DelegatorRegistryEntry entry = registry.getEntry("urlkey");
+            rtn = (String) entry.getDelegator().invokeMethod();
+
+/*            Class clazz = Class.forName("uk.co.agilesphere.wrapped.service.Service");
             System.out.println("Clazz=" + clazz.getSimpleName());
             Constructor<?> cons = clazz.getDeclaredConstructor(String.class);
             //Object obj = clazz.newInstance();
@@ -37,7 +40,7 @@ public class ServiceController {
             //cArg[0] = String.class;
             Method meth = clazz.getDeclaredMethod("ping", new Class[]{});
             Object ret = meth.invoke(obj, new Object[]{});
-            rtn = (String) ret;
+            rtn = (String) ret;*/
         } catch (Exception e) {
             System.out.println("EXCEPTION " + e);
             e.printStackTrace();
@@ -55,5 +58,4 @@ public class ServiceController {
         //return "XX..."+service.ping()+"...XX";
         return "XX..." + rtn + "...XYZ";
     }
-
 }

@@ -3,7 +3,7 @@ package uk.co.agilesphere.microservicewrapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-import uk.co.agilesphere.wrapped.service.ServiceConfiguration;
+import uk.co.agilesphere.dummyservice.service.ServiceConfiguration;
 
 @SpringBootApplication
 @Import(ServiceConfiguration.class)
