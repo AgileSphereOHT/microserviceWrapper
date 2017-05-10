@@ -10,7 +10,8 @@ public class LibraryClassNoArgConstructor {
 
     private String returnValue = "RETURNED";
 
-    public LibraryClassNoArgConstructor() { }
+    public LibraryClassNoArgConstructor() {
+    }
 
     public String respond() {
         return returnValue;

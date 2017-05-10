@@ -29,17 +29,17 @@ public class ServiceController {
         String rtn = "";
         try {
             Class clazz = Class.forName("uk.co.agilesphere.wrapped.service.Service");
-            System.out.println("Clazz="+clazz.getSimpleName());
+            System.out.println("Clazz=" + clazz.getSimpleName());
             Constructor<?> cons = clazz.getDeclaredConstructor(String.class);
             //Object obj = clazz.newInstance();
             Object obj = cons.newInstance("PINGBACK");
             //Class[] cArg = new Class[1];
             //cArg[0] = String.class;
             Method meth = clazz.getDeclaredMethod("ping", new Class[]{});
-            Object ret = meth.invoke(obj,new Object[] {});
+            Object ret = meth.invoke(obj, new Object[]{});
             rtn = (String) ret;
         } catch (Exception e) {
-            System.out.println("EXCEPTION "+e);
+            System.out.println("EXCEPTION " + e);
             e.printStackTrace();
         } /*catch (ClassNotFoundException cnfe) {
             System.out.println("CNFE");
@@ -53,7 +53,7 @@ public class ServiceController {
             System.out.println("IAE");
         }*/
         //return "XX..."+service.ping()+"...XX";
-        return "XX..."+rtn+"...XYZ";
+        return "XX..." + rtn + "...XYZ";
     }
 
 }

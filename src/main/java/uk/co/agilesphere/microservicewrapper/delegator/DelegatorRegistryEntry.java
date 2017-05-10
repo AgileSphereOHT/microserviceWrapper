@@ -7,8 +7,9 @@ import java.util.StringTokenizer;
 
 public class DelegatorRegistryEntry {
 
-    public static final int PROPERTY_FIELDS_BEFORE_PARAMETERS = 3;
     private static Logger logger = LoggerFactory.getLogger(DelegatorRegistryEntry.class);
+
+    public static final int PROPERTY_FIELDS_BEFORE_PARAMETERS = 3;
 
     private String key;
     private String className;
@@ -31,22 +32,21 @@ public class DelegatorRegistryEntry {
         this.delegator = delegator;
     }
 
-    //Property definition key, class name, method name, return type, zero to many parameters
     public static DelegatorRegistryEntry generateFromPropertyDefinition(String propertyKey, String propertyDefinition) {
         DelegatorRegistryEntry entry = null;
-        StringTokenizer tokens = new StringTokenizer(propertyDefinition,",");
+        StringTokenizer tokens = new StringTokenizer(propertyDefinition, ",");
         int parameterCount = tokens.countTokens() - PROPERTY_FIELDS_BEFORE_PARAMETERS;
-        //while (tokens.hasMoreTokens()) {
+        while (tokens.hasMoreTokens()) {
             String className = tokens.nextToken();
             String methodName = tokens.nextToken();
             String returnType = tokens.nextToken();
             String[] parameters = new String[parameterCount];
-            for (int ix=0; ix<parameterCount;ix++) {
+            for (int ix = 0; ix < parameterCount; ix++) {
                 parameters[ix] = tokens.nextToken();
             }
-            Delegator delegator = new Delegator(className,methodName,parameters);
-            entry = new DelegatorRegistryEntry(propertyKey,className,methodName,returnType,parameters,delegator);
-        //}
+            Delegator delegator = new Delegator(className, methodName, parameters);
+            entry = new DelegatorRegistryEntry(propertyKey, className, methodName, returnType, parameters, delegator);
+        }
         return entry;
     }
 

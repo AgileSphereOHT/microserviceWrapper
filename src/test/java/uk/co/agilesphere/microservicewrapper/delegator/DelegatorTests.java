@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-
 import static uk.co.agilesphere.microservicewrapper.delegator.TestConstants.*;
 
 /*

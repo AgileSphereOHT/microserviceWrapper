@@ -16,11 +16,11 @@ public class TestConstants {
     public static final String METHOD_THROWING_SERVICE_EXCEPTION_NAME = "respondWithException";
     public static final String METHOD_DOES_NOT_EXIST_NAME = "methoddoesnotexist";
     public static final String UNDEFINED_RETURN_TYPE = "UNDEFINED";
-
+    public static final String STRING_RETURN_TYPE = "String";
 
     public static final String[] ZERO_PARAMETERS = {};
     public static final String[] ONE_PARAMETER = {"param1"};
-    public static final String[] TWO_PARAMETERS = {"param1","param2"};
-    public static final String[] THREE_PARAMETERS =  {"param1","param2","param3"};
+    public static final String[] TWO_PARAMETERS = {"param1", "param2"};
+    public static final String[] THREE_PARAMETERS = {"param1", "param2", "param3"};
     //static final Class[] tooManyParameters = new Class[]{String.class, String.class, String.class, String.class};
 }

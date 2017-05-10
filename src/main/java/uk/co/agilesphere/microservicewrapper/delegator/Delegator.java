@@ -61,7 +61,7 @@ public class Delegator {
     private Object constructDelegate(Class libraryClass) {
         Object delegate;
         try {
-            Constructor<?> cons = libraryClass.getDeclaredConstructor();    // todo thi is with no arg constructor - contrains service classes OR allow
+            Constructor<?> cons = libraryClass.getDeclaredConstructor();    // TODO this is with no arg constructor - contrains service classes OR allow
             delegate = cons.newInstance();
         } catch (NoSuchMethodException nsme) {
             final String expectedErrorMessage = "Unable to find constructor on class = " + libraryClassName;
