@@ -109,7 +109,7 @@ public class DelegatorTests {
 
     @Test
     public void testMethodInvocationServiceException() {
-        final String expectedErrorMessage = "Exception thrown when invoking method " + METHOD_THROWING_SERVICE_EXCEPTION_NAME + " on class = " + LIBRARY_CLASS_NO_ARG_CONS_NAME + " with message: A library class exception";
+        final String expectedErrorMessage = "Exception thrown when invoking method " + METHOD_THROWING_SERVICE_EXCEPTION_NAME + " on class = " + LIBRARY_CLASS_NO_ARG_CONS_NAME + " with params [] : Message: A library class exception";
         expectedException.expect(DelegatorInvocationException.class);
         expectedException.expectMessage(expectedErrorMessage);
         Delegator delegator = new Delegator(loader, LIBRARY_CLASS_NO_ARG_CONS_NAME, METHOD_THROWING_SERVICE_EXCEPTION_NAME, ZERO_PARAMETERS);

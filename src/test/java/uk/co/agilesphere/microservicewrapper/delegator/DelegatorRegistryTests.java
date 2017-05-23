@@ -62,7 +62,6 @@ public class DelegatorRegistryTests {
         expectedException.expectMessage(expectedErrorMessage);
         String configFile = "unknownmethod.properties";
         DelegatorRegistry registry = new DelegatorRegistry(jarPath, configPath + configFile);
-        registry.registerDelegators();
     }
 
     @Test

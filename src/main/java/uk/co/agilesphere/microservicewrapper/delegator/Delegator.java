@@ -8,6 +8,7 @@ import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorInvoca
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class Delegator {
 
@@ -31,15 +32,17 @@ public class Delegator {
 
     public Object invokeMethod(Object... params) {
         Object ret;
+        String paramsAsString = Arrays.toString(params);
         try {
             //TODO provide pre-check of parameter number and type (all String at the mo) vs params
+            logger.info("Invoking method " + methodName + " on class = " + libraryClassName + " with params "+ paramsAsString);
             ret = invocableMethod.invoke(delegate, params);
         } catch (IllegalAccessException | IllegalArgumentException iae) {
-            String expectedErrorMessage = "Unable to invoke method " + methodName + " on class = " + libraryClassName;  //TODO show failing params
+            String expectedErrorMessage = "Unable to invoke method " + methodName + " on class = " + libraryClassName + " with params "+ paramsAsString;
             logger.error(expectedErrorMessage);
             throw new DelegatorInvocationException(expectedErrorMessage, iae);
         } catch (InvocationTargetException ite) {
-            String expectedErrorMessage = "Exception thrown when invoking method " + methodName + " on class = " + libraryClassName + " with message: " + ite.getCause().getMessage();  //TODO show failing params
+            String expectedErrorMessage = "Exception thrown when invoking method " + methodName + " on class = " + libraryClassName + " with params "+ paramsAsString + " : Message: " + ite.getCause().getMessage();
             logger.error(expectedErrorMessage);
             throw new DelegatorInvocationException(expectedErrorMessage, ite);
         }
