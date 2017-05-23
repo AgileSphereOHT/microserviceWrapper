@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorRegistrationException;
 
 import java.io.ByteArrayInputStream;
@@ -16,6 +18,8 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
 public class DelegatorRegistryPropertiesTest {
+
+    private static Logger logger = LoggerFactory.getLogger(DelegatorRegistryPropertiesTest.class);
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -40,7 +44,7 @@ public class DelegatorRegistryPropertiesTest {
 
     @Test
     public void testLoadPropertiesTestForSingleProperty() throws IOException {
-        DelegatorRegistryProperties delegatorRegistryProperties = org.mockito.Mockito.spy(new DelegatorRegistryProperties());
+        DelegatorRegistryProperties delegatorRegistryProperties = org.mockito.Mockito.spy(new DelegatorRegistryProperties("./src/test/resources/delegators/testdelegators.properties"));
         Mockito.when(delegatorRegistryProperties.getInputStream()).thenReturn(new ByteArrayInputStream("myproperty=goodvalue".getBytes()));
         delegatorRegistryProperties.loadProperties();
         Properties theProperties = delegatorRegistryProperties.getProperties();
@@ -49,7 +53,7 @@ public class DelegatorRegistryPropertiesTest {
 
     @Test
     public void testLoadPropertiesFromClasspathPropertyFile() throws IOException {
-        DelegatorRegistryProperties delegatorRegistryProperties = new DelegatorRegistryProperties("delegators/testdelegators.properties");
+        DelegatorRegistryProperties delegatorRegistryProperties = new DelegatorRegistryProperties("./src/test/resources/delegators/testdelegators.properties");
         delegatorRegistryProperties.loadProperties();
         Properties theProperties = delegatorRegistryProperties.getProperties();
         assertEquals("Property 0 found", "uk.co.agilesphere.microservicewrapper.delegator.LibraryClassNoArgConstructor,respond,String", theProperties.getProperty("testkey0"));

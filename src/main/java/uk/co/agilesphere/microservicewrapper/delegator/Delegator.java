@@ -19,10 +19,10 @@ public class Delegator {
     private Object delegate;
     private Method invocableMethod;
 
-    public Delegator(String libraryClassName, String methodName, String... parameterNames) {
+    public Delegator(ClassLoader jarFileLoader, String libraryClassName, String methodName, String... parameterNames) {
         this.libraryClassName = libraryClassName;
         this.methodName = methodName;
-        this.libraryClass = obtainClass(libraryClassName);
+        this.libraryClass = obtainLoadedClass(jarFileLoader, libraryClassName);
 
         this.delegate = constructDelegate(libraryClass);
         //TODO parameters here are the mames of String parameters - need to allow name and Type?
@@ -44,6 +44,18 @@ public class Delegator {
             throw new DelegatorInvocationException(expectedErrorMessage, ite);
         }
         return ret;
+    }
+
+    private Class obtainLoadedClass(ClassLoader jarFileLoader, String className) {
+        Class clazz;
+        try {
+            clazz = jarFileLoader.loadClass(className);
+        } catch (ClassNotFoundException cnfe) {
+            final String expectedErrorMessage = "Unable to create class = " + className;
+            logger.error(expectedErrorMessage);
+            throw new DelegatorConfigurationException(expectedErrorMessage, cnfe);
+        }
+        return clazz;
     }
 
     private Class obtainClass(String className) {

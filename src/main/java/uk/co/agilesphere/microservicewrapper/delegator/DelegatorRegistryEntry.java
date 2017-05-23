@@ -32,7 +32,7 @@ public class DelegatorRegistryEntry {
         this.delegator = delegator;
     }
 
-    public static DelegatorRegistryEntry generateFromPropertyDefinition(String propertyKey, String propertyDefinition) {
+    public static DelegatorRegistryEntry generateFromPropertyDefinition(String propertyKey, String propertyDefinition, ClassLoader jarFileLoader) {
         DelegatorRegistryEntry entry = null;
         StringTokenizer tokens = new StringTokenizer(propertyDefinition, ",");
         int parameterCount = tokens.countTokens() - PROPERTY_FIELDS_BEFORE_PARAMETERS;
@@ -44,7 +44,7 @@ public class DelegatorRegistryEntry {
             for (int ix = 0; ix < parameterCount; ix++) {
                 parameters[ix] = tokens.nextToken();
             }
-            Delegator delegator = new Delegator(className, methodName, parameters);
+            Delegator delegator = new Delegator(jarFileLoader, className, methodName, parameters);
             entry = new DelegatorRegistryEntry(propertyKey, className, methodName, returnType, parameters, delegator);
         }
         return entry;

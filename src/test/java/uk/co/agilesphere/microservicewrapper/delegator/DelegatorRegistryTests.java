@@ -2,10 +2,17 @@ package uk.co.agilesphere.microservicewrapper.delegator;
 
 
 import org.hamcrest.Matchers;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.co.agilesphere.microservicewrapper.delegator.exception.DelegatorConfigurationException;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -15,16 +22,35 @@ import static uk.co.agilesphere.microservicewrapper.delegator.TestConstants.*;
 
 public class DelegatorRegistryTests {
 
+    private static Logger logger = LoggerFactory.getLogger(DelegatorRegistryTests.class);
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    private static String jarPath;
+    private static String configPath;
+
+    @BeforeClass
+    public static void setup() {
+        String jarFileLoc = "src/test/resources/testjar/dummy-service-0.0.1-SNAPSHOT.jar";
+        File jarFile = new File(jarFileLoc);
+        jarPath = jarFile.getAbsolutePath();
+
+        String configDirLoc = "src/test/resources/delegators";
+        File configDir = new File(configDirLoc);
+        configPath = configDir.getAbsolutePath() + "/";
+        logger.info("DelegatorRegistryTests - Test Jar Path = " + jarPath);
+        logger.info("DelegatorRegistryTests - Config Dir Path = " + configPath);
+
+    }
 
     @Test
     public void testLoadDelegatorPropertiesInvalidClass() {
         final String expectedErrorMessage = "Unable to create class = " + LIBRARY_CLASS_DOES_NOT_EXIST_NAME;
         expectedException.expect(DelegatorConfigurationException.class);
         expectedException.expectMessage(expectedErrorMessage);
-        String configFile = "delegators/unknownclass.properties";
-        DelegatorRegistry registry = new DelegatorRegistry(configFile);
+        String configFile = "unknownclass.properties";
+        DelegatorRegistry registry = new DelegatorRegistry(jarPath, configPath + configFile);
         registry.registerDelegators();
     }
 
@@ -34,16 +60,16 @@ public class DelegatorRegistryTests {
                 "Unable to find invocable method respondX with 0 parameters on class = " + LIBRARY_CLASS_NO_ARG_CONS_NAME;
         expectedException.expect(DelegatorConfigurationException.class);
         expectedException.expectMessage(expectedErrorMessage);
-        String configFile = "delegators/unknownmethod.properties";
-        DelegatorRegistry registry = new DelegatorRegistry(configFile);
+        String configFile = "unknownmethod.properties";
+        DelegatorRegistry registry = new DelegatorRegistry(jarPath, configPath + configFile);
         registry.registerDelegators();
     }
 
     @Test
     public void testLoadDelegatorPropertiesMatchedServiceMethod() {
-        String configFile = "delegators/testdelegators.properties";
+        String configFile = "testdelegators.properties";
         String key = "testkey1";
-        DelegatorRegistry registry = new DelegatorRegistry(configFile);
+        DelegatorRegistry registry = new DelegatorRegistry(jarPath, configPath + configFile);
         registry.registerDelegators();
         DelegatorRegistryEntry entry = registry.getEntry(key);
         assertNotNull("No matched service method found for key=" + key, entry);
@@ -57,14 +83,13 @@ public class DelegatorRegistryTests {
 
     @Test
     public void testRegisteredMethodInvocationWithOneParamSuccess() {
-        String configFile = "delegators/testdelegators.properties";
+        String configFile = "testdelegators.properties";
         String key = "testkey1";
-        DelegatorRegistry registry = new DelegatorRegistry(configFile);
+        DelegatorRegistry registry = new DelegatorRegistry(jarPath, configPath + configFile);
         registry.registerDelegators();
-        DelegatorRegistryEntry entry = registry.getEntry(key);
-        Delegator delegator = entry.getDelegator();
-        String[] oneParam = ONE_PARAMETER;
-        String result = (String) delegator.invokeMethod(oneParam);
+        Map<String, String[]> params = new HashMap<String, String[]>();
+        params.put("param1", ONE_PARAMETER);
+        String result = (String) registry.getResult(key, params);
         assertEquals("Method invocation response", "Param1 = param1", result);
     }
 }
